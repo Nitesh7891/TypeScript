@@ -16,6 +16,6 @@ let arr:number[]=[1,2,3];
 
 
 //tuple
-let array:number[4]=[1,2,3,4];
+let array:[number,string]=[1,"Hi!"];
 
-198507
+
