@@ -66,3 +66,27 @@ function greet():void{
 }
 
 
+//interface
+//An interface in TypeScript is a way to define the structure of an object. 
+// It specifies the properties and methods that an object should have, without providing the implementation details. 
+// Interfaces are used to enforce a certain shape on objects and to enable type checking.
+interface Person{
+    id:number,
+    name:string,
+    age:number
+}
+
+//if we want to make the properties of the interface optional then we can use the ? operator
+//if any of property is missing then it will not give any error
+const Rahul:Person={
+    id:1,
+    name:"Rahul",
+    age:30,
+}
+
+function printPErson(obj:Person):void{
+    obj.id=1;
+    obj.name="Nitesh";
+    console.log(obj);
+}
+
