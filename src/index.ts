@@ -84,9 +84,8 @@ const Rahul:Person={
     age:30,
 }
 
-function printPErson(obj:Person):void{
-    obj.id=1;
-    obj.name="Nitesh";
+function printPerson(obj:Person):void{
     console.log(obj);
 }
 
+printPerson(Rahul);
