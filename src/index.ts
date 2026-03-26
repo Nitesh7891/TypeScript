@@ -89,3 +89,79 @@ function printPerson(obj:Person):void{
 }
 
 printPerson(Rahul);
+
+
+//Extending interfaces
+//extending interfaces is a powerful feature in TypeScript that allows you to create new interfaces based on existing ones.
+interface User{
+    name:string,
+    password:string,
+    email:string,
+}
+
+
+interface Admin extends User{
+    role:string,
+}
+
+function printUserRole(obj:Admin):void{
+    if(obj.role==="admin")
+   console.log(obj.role)
+}
+
+printUserRole({name:"Nitesh",role:"employee",password:"1234",email:"nitesh@example.com"});
+
+//if two interfaces have same name then it will merge the properties of both the interfaces
+interface User2{
+    age:number,
+}
+
+interface User2{
+    name:string
+}
+
+
+const rahul:User2={
+    name:"Rahul",
+    age:30,
+}
+
+console.log(rahul.name);
+console.log(rahul.age);
+
+//tyoe aliases
+//Type aliases in TypeScript are a way to create a new name for a type. 
+// They allow you to define a type that can be used in multiple places in your code, making it easier to read and maintain.
+type StringOrNumber=string | number;
+let variable:StringOrNumber="Hello";
+variable=123;//it is correct because we have defined the variable as a union type of string and number, so it can hold either a string or a number.
+
+//intersection types
+//Interfaces only work with objects, not primitives
+// Interface cannot do this:
+type A = string;
+type B = number;
+
+type C = A & B; // strange but possible
+
+
+type User3={
+    name:string,
+    age:number,
+}
+
+type Employee=User3 &{
+    employeeId:number,
+}
+
+const mohan:Employee={
+    name:"Rahul",
+    age:30,
+    employeeId:1234,
+}
+console.log(mohan.name);
+console.log(mohan.age);
+console.log(mohan.employeeId);
+
+
+//classes and objects
