@@ -164,4 +164,55 @@ console.log(mohan.age);
 console.log(mohan.employeeId);
 
 
-//classes and objects
+//classes, objects and constructors
+//A class in TypeScript is a blueprint for creating objects. 
+// It defines the properties and methods that an object created from the class will have. 
+// A constructor is a special method in a class that is called when an object is instantiated. 
+// It is used to initialize the properties of the object.
+//This automatically does 3 things:
+
+// ✔️ 1. Creates properties
+// name: string;
+// model: string;
+// year: number;
+// ✔️ 2. Assigns values
+// this.name = name;
+// this.model = model;
+// this.year = year;
+// ✔️ 3. Makes them public
+// 🔥 So your class is actually equal to this:
+// class Car {
+//   name: string;
+//   model: string;
+//   year: number;
+//   mileage: number = 40;
+
+//   constructor(name: string, model: string, year: number) {
+//     this.name = name;
+//     this.model = model;
+//     this.year = year;
+//   }
+
+//   displayInfo(): void {
+//     console.log(
+//       `Car Name: ${this.name}, Model: ${this.model}, Year: ${this.year}, Mileage: ${this.mileage}`
+//     );
+//   }
+// }
+
+class Car{
+   mileage:number=40;
+   constructor(public name:string,public model:string,public year:number ){
+
+   }
+
+    displayInfo():void{
+    console.log(`Car Name: ${this.name}, Model: ${this.model}, Year: ${this.year}, Mileage: ${this.mileage}`);
+   }
+
+}
+
+let car1=new Car("Toyota", "Camry", 2020);
+car1.displayInfo();
+
+
