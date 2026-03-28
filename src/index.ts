@@ -155,6 +155,11 @@ variable=123;//it is correct because we have defined the variable as a union typ
 type A = string;
 type B = number;
 
+// This does NOT create variables or store anything.
+// Instead, it means:
+// “User5 is a type whose allowed values are exactly these string literals.”
+type User5="user" | "admin" | "guest";
+const users:User5="user"
 type C = A & B; // strange but possible
 
 
@@ -308,17 +313,152 @@ book1.displayTitle();
 //In TypeScript, optional properties are properties that may or may not be present in an object.
 // They are denoted by a question mark (?) after the property name in an interface or type definition. 
 // Optional properties allow you to create more flexible and adaptable types, as they can be omitted when creating objects that conform to the type.
+class User4{
+    constructor(public name:string, public email:string, public age?:number){}
+    showInfo():void{
+        console.log(this);
+    }
+}
+let user1=new User4("Nitesh","nitesh@example.com");
+user1.showInfo();
 
 
 /*********************************************************************************************************************/
 
 //static keyword
+//In TypeScript, the static keyword is used to define static members of a class.
+// Static members are shared among all instances of the class and can be accessed without creating an instance of the class. 
+// They are typically used for utility functions, constants, or properties that are common to all instances of the class.
+class MathUtils{
+    static pi:number=3.14159;
+    static calculateCircumference(radius:number):number{
+        return 2 * MathUtils.pi * radius;
+    }
+}
+console.log(MathUtils.pi);
+console.log(MathUtils.calculateCircumference(5));
 
 /*********************************************************************************************************************/
 
 //Getters and setters
+//In TypeScript, getters and setters are special methods that allow you to define how to access and modify the properties of a class.
+// A getter is a method that retrieves the value of a property, while a setter is a method that sets the value of a property. 
+// Getters and setters provide a way to control access to the properties of a class and can be used to perform additional logic when getting or setting a property.
+class Profile{
+    private _username:string;
+    constructor(username:string){
+        this._username=username;
+    }
+    get username():string{
+        return this._username;
+    }
+    set username(newUsername:string){
+        if(newUsername.length > 3){
+            this._username=newUsername;
+        }else{
+            console.log("Username must be at least 4 characters long.");
+        }
+}
+}
+let profile1=new Profile("Nitesh");
+console.log(profile1.username);
+profile1.username="Ni";
+console.log(profile1.username);
+profile1.username="Nitesh123";
+console.log(profile1.username);
+
 
 /*********************************************************************************************************************/
 
 //abstract classes and methods
+//In TypeScript, an abstract class is a class that cannot be instantiated on its own and is meant to be subclassed.
 
+
+/*********************************************************************************************************************/
+
+//function
+
+/*********************************************************************************************************************/
+
+//rest paramater and spread operator
+
+/*********************************************************************************************************************/
+
+//function overloading
+//Function overloading is a feature in TypeScript that allows you to define multiple function signatures for a single function implementation. 
+// This means you can have different ways to call the same function, and TypeScript will determine which implementation to use based on the arguments provided.
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: any, b: any): any {
+    if (typeof a === "number" && typeof b === "number") {
+        return a + b;
+    } else if (typeof a === "string" && typeof b === "string") {
+        return a + b;
+    } else {
+        throw new Error("Incompatible types");
+    }
+}
+
+/*********************************************************************************************************************/
+
+//generics
+//generic function
+function hi<T>(a:number,val:T){
+    console.log(typeof val)
+}
+
+hi(22,21);
+
+//generic interface
+interface Student<T,H>{
+    firstName:string,
+    secondName:string,
+    class:T
+    value:H
+}
+
+function stud(obj:Student<string,number>){
+    console.log(obj)
+}
+
+stud({firstName:"Nitesh",secondName:"Kumar",class:"FourthYear",value:22});
+
+/*********************************************************************************************************************/
+
+//Duck typing
+//Duck typing is a concept in programming where the type or class of an object is determined by its behavior (methods and properties) rather than its explicit declaration. 
+// In TypeScript, this means that if an object has the necessary properties and methods to satisfy a certain interface, it can be treated as that type
+// , even if it doesn't explicitly implement the interface.
+interface Point {
+    x: number;
+    y: number;
+}
+function printPoint(point: Point): void {
+    console.log(`x: ${point.x}, y: ${point.y}`);
+}
+const myPoint = { x: 10, y: 20, z: 30 }; // This object has extra properties
+printPoint(myPoint); // This works because myPoint has the required properties x and y  
+
+/*********************************************************************************************************************/
+//partial keyword
+type bus={
+    company:string,
+    size:"medium" | "large",
+    capacity:number,
+}
+
+const assignBus=(obj:Partial<bus>)=>{
+     console.log("Assigning Buses ...")
+}
+
+
+assignBus({company:"Red Bus",size:"large"});
+
+const buses:Partial<bus>={
+    company:"Red Bus",
+    size:"large",
+}
+
+/*********************************************************************************************************************/
+
+//required keyword
