@@ -372,7 +372,26 @@ console.log(profile1.username);
 
 //abstract classes and methods
 //In TypeScript, an abstract class is a class that cannot be instantiated on its own and is meant to be subclassed.
-
+class Animal{
+    constructor(public name:string){}
+}
+abstract class Mammal extends Animal{
+    constructor(name:string){
+        super(name);
+    }   
+    abstract makeSound():void;
+}
+class Dog extends Mammal{
+    constructor(name:string){
+        super(name);
+    }   
+    makeSound():void{
+        console.log("Woof!");
+    }
+}
+let dog1=new Dog("Buddy");
+console.log(dog1.name);
+dog1.makeSound();
 
 /*********************************************************************************************************************/
 
@@ -453,6 +472,10 @@ const assignBus=(obj:Partial<bus>)=>{
 
 
 assignBus({company:"Red Bus",size:"large"});
+assignBus({company:"Travellers"})
+assignBus({size:"medium",capacity:50})
+assignBus({})//sometimes we may not have all the properties of the bus object to assign,
+//  so we can use the Partial keyword to make all the properties of the bus object optional.
 
 const buses:Partial<bus>={
     company:"Red Bus",
@@ -462,3 +485,43 @@ const buses:Partial<bus>={
 /*********************************************************************************************************************/
 
 //required keyword
+type Car2={
+    company:string,
+    model:string,
+    year:number,
+}
+
+const assignCar=(obj:Required<Car2>)=>{
+    console.log("Assigning Car ...")
+}   
+
+assignCar({company:"Toyota",model:"Camry",year:2020});
+//assignCar({company:"Toyota",model:"Camry"});//it is wrong because we have defined the parameter obj as Required<Car2>
+//  which means all the properties of Car2 are required but we are trying to pass an object which is missing the year property.
+
+/*********************************************************************************************************************/
+
+//Pick and Omit keywords
+type Employee6={
+    name:string,
+    department:string,
+    employeeId:number,
+}
+//pick keyword is used to create a new type by picking a set of properties from an existing type.
+type EmployeeNameAndDepartment=Pick<Employee6,"name" | "department">;
+
+const employee1:EmployeeNameAndDepartment={
+    name:"Alice",
+    department:"HR",
+}
+
+//omit keyword is used to create a new type by omitting a set of properties from an existing type.
+type EmployeeWithoutId=Omit<Employee6,"employeeId">;
+
+const employee2:EmployeeWithoutId={
+    name:"Bob",
+    department:"IT",
+}
+
+/*********************************************************************************************************************/
+
